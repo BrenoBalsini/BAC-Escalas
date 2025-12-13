@@ -85,7 +85,6 @@ export default function ScheduleGeneratorPage() {
     setCurrentStepRaw(step);
   };
 
-
   useEffect(() => {
     setSavedState({
       startDate,
@@ -741,9 +740,9 @@ export default function ScheduleGeneratorPage() {
               </div>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
               <table className="min-w-full text-sm">
-                <thead className="sticky top-0 bg-white z-20">
+                <thead className="sticky top-0 bg-white z-20 shadow-md">
                   <tr>
                     <th
                       className="sticky left-0 bg-white z-30 px-2 sm:px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
@@ -755,7 +754,7 @@ export default function ScheduleGeneratorPage() {
                       Rank
                     </th>
                     {days.map((day) => {
-                      const date = new Date(day + "T00:00:00");
+                      const date = new Date(`${day}T00:00:00`);
                       const dayOfMonth = date
                         .getDate()
                         .toString()
@@ -857,7 +856,10 @@ export default function ScheduleGeneratorPage() {
                                         (p) => p.id === workingPostId
                                       );
                                       cellContent = `XP${
-                                        workingPost?.name.replace("Posto ", "") || "?"
+                                        workingPost?.name.replace(
+                                          "Posto ",
+                                          ""
+                                        ) || "?"
                                       }`;
                                       bgClass = "bg-blue-100";
                                     }
@@ -963,19 +965,19 @@ export default function ScheduleGeneratorPage() {
       </div>
       <div className="mt-8 bg-white rounded-lg shadow-md">
         <div className="p-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-gray-200">
-        
-            <Button.Root>
-              <Button.ButtonComponent
-                variant="secondary"
-                onClick={goToPreviousStep}
-                disabled={currentStep === 1}
-                className={currentStep == 1 ? "text-transparent hover:bg-transparent" : "" }
-              >
-                <Button.Icon icon={FaArrowLeft} />
-                Voltar
-              </Button.ButtonComponent>
-            </Button.Root>
-         
+          <Button.Root>
+            <Button.ButtonComponent
+              variant="secondary"
+              onClick={goToPreviousStep}
+              disabled={currentStep === 1}
+              className={
+                currentStep == 1 ? "text-transparent hover:bg-transparent" : ""
+              }
+            >
+              <Button.Icon icon={FaArrowLeft} />
+              Voltar
+            </Button.ButtonComponent>
+          </Button.Root>
 
           <div className="flex self-end gap-2 sm:gap-4">
             {currentStep === 1 && (

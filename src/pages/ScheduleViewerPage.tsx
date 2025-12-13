@@ -7,7 +7,7 @@ import { type EditContext } from "../types/EditContext";
 import EditShiftModal from "../components/modals/EditShiftModal";
 import LogViewerModal from "../components/modals/LogViewModal";
 import * as Button from "../components/ui/Button";
-import { FaArrowLeft, FaCopy, FaList, FaRepeat  } from "react-icons/fa6";
+import { FaArrowLeft, FaCopy, FaList, FaRepeat } from "react-icons/fa6";
 import TriangulationModal, {
   type TriangulationOpportunity,
 } from "../components/modals/TriangulationModal";
@@ -665,13 +665,13 @@ export default function ScheduleViewerPage() {
             </div>
           </div>
 
-          <div className="overflow-x-auto mt-4">
+          <div className="overflow-x-auto overflow-y-auto max-h-[600px] mt-4">
             <p className="text-sm text-gray-500 mb-4 text-center sm:text-left">
               Clique em qualquer célula da escala (X, FC, --, etc.) para fazer
               um ajuste manual.
             </p>
             <table className="min-w-full text-sm">
-              <thead className="sticky top-0 bg-white z-20">
+              <thead className="sticky top-0 bg-white z-20 shadow-md">
                 <tr>
                   <th
                     className="sticky left-0 bg-white z-30 px-2 sm:px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
@@ -791,7 +791,8 @@ export default function ScheduleViewerPage() {
                                       (p) => p.id === workingPostId
                                     );
                                     cellContent = `XP${
-                                      workingPost?.name.replace("Posto ", "") || "?"
+                                      workingPost?.name.replace("Posto ", "") ||
+                                      "?"
                                     }`;
                                     bgClass = "bg-blue-100";
                                   }
@@ -845,7 +846,9 @@ export default function ScheduleViewerPage() {
                                   lifeguard.id
                                 );
 
-                                const isReceiverB = receiverB_Ids.has(lifeguard.id);
+                                const isReceiverB = receiverB_Ids.has(
+                                  lifeguard.id
+                                );
 
                                 return (
                                   <td
@@ -900,6 +903,7 @@ export default function ScheduleViewerPage() {
                             const requiredTotal =
                               capacityMatrix[post.id]?.[day] || 0;
                             const isDeficit = dailyTotal < requiredTotal;
+                            const isExcess = dailyTotal > requiredTotal;
 
                             return (
                               <td
@@ -907,6 +911,8 @@ export default function ScheduleViewerPage() {
                                 className={`p-2 text-center text-xs ${
                                   isDeficit
                                     ? "bg-red-200 text-red-800"
+                                    : isExcess
+                                    ? "bg-orange-200 text-orange-800"
                                     : "text-gray-700"
                                 }`}
                               >
